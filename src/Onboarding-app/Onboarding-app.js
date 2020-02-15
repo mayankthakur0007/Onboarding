@@ -67,6 +67,9 @@ class OnboardingApp extends PolymerElement {
     color: black;
     font-weight: bold;
   }
+  #header1{
+    float:right;
+  }
 </style>
 <app-location route="{{route}}">
 </app-location>
@@ -84,10 +87,15 @@ class OnboardingApp extends PolymerElement {
           </h3>
         </div>
       </app-toolbar>
+      <paper-button raised style="float: right" style="float: right" on-click="_handleHome">HOME</paper-button>
+      <template is="dom-if" if={{login}}>
+      <paper-button raised class="header" on-click="_handleLogout">Logout</paper-button>
+      </template>
     </app-header>
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
     <home-page name="home"></home-page>
     <registration-form name="registration-form"></registration-form>
+    <login-page name="login"></login-page>
   </iron-pages>
   </app-header-layout>
 </app-drawer-layout>
@@ -123,11 +131,11 @@ class OnboardingApp extends PolymerElement {
       '_routePageChanged(routeData.page)'
     ];
   }
-  // _loginChanged() {
-  //   this.addEventListener('refresh-login', (event) => {
-  //     this.login = event.detail.login;
-  //   })
-  // }
+  _loginChanged() {
+    this.addEventListener('refresh-login', (event) => {
+      this.login = event.detail.login;
+    })
+  }
   // // _handleClear() {
   // // sessionStorage.clear();
   // // }
@@ -135,10 +143,11 @@ class OnboardingApp extends PolymerElement {
   //   this.shadowRoot.querySelector('#guestTag1').style.display = 'block'
   //   this.shadowRoot.querySelector('#adminTag').style.display = 'none'
   // }
-  // _handleLogout() {
-  //   sessionStorage.clear();
-  //   this.login = false;
-  // }
+  _handleLogout() {
+    sessionStorage.clear();
+    this.login = false;
+    this.set('route.path', './home')
+  }
   // _handleGuest() {
   //   this.shadowRoot.querySelector('#guestTag1').style.display = 'none'
   //   this.shadowRoot.querySelector('#adminTag').style.display = 'block'
@@ -151,7 +160,7 @@ class OnboardingApp extends PolymerElement {
   _routePageChanged(page) {
     if (!page) {
       this.page = 'home';
-    } else if (['home', 'registration-form'].indexOf(page) !== -1) {
+    } else if (['home', 'registration-form','login'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'home';
@@ -170,6 +179,9 @@ class OnboardingApp extends PolymerElement {
       case 'registration-form':
         import('./registration-form.js');
         break;
+        case 'login':
+          import('./login-page.js');
+          break;
     }
   }
 
