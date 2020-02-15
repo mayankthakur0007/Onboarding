@@ -13,8 +13,6 @@ class SkeletonCarousel extends PolymerElement {
           display: block;
         }
       </style>
-      
-
       <skeleton-carousel loop auto duration=2000>
       <template is="dom-repeat" items="{{dataCarousel}}">
       <div>
