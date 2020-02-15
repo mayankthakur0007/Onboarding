@@ -12,17 +12,14 @@ class OnboardingApp extends PolymerElement {
           display: block;
         }
       </style>
-      <h2>Hello [[prop1]]!</h2>
+
     `;
   }
   static get properties() {
     return {
-      prop1: {
-        type: String,
-        value: 'Onboarding-app'
-      }
+     
     };
   }
 }
 
-window.customElements.define('Onboarding-app', OnboardingApp);
+window.customElements.define('onboarding-app', OnboardingApp);
