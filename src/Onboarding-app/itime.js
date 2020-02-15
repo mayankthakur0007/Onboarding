@@ -42,29 +42,17 @@ th, td{
     background-color:blue;
     margin:20px;
 }
-
-
- 
 </style>
-
-<h2>TSMS: {{prop1}}</h2>
-
-
-
+<h1>Time Sheet Management System</h1>
 <paper-input label="Number of hours" id="hours" allowed-pattern=[0-9] type="text" value={{hour}} name="hour"  maxlength="2" 
 required error-message="fill your time sheet" ></paper-input>
 <paper-button raised id="add" on-click="_handleAdd">Add</paper-button>
-
-
-
 <table id="tab1">
-        
             <tr>
                 <th>Date</th>
                 <th>Employee Name</th>
                 <th>Today Time Entry </th>  
             </tr>
-
         <template is="dom-repeat" items={{data}}>
         <tr>
             <td>{{item.date}}</td>
