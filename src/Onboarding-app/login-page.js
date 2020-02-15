@@ -129,10 +129,10 @@ class LoginPage extends PolymerElement {
         if(this.users.statusCode=="404"){
             this.$.wrongCredentials.open();
         }else{
-        this.dispatchEvent(new CustomEvent('refresh-login', { detail: { login: true }, bubbles: true, composed: true }))
+        this.dispatchEvent(new CustomEvent('refresh-login', { detail: { login: true ,name:this.users.employeeName}, bubbles: true, composed: true }))
         sessionStorage.setItem('login', true);
         sessionStorage.setItem('id', this.users.employeeId);
-        sessionStorage.setItem('name', this.users.employeeName);
+        sessionStorage.setItem('name1', this.users.employeeName);
         this.set('route.path', './dashboard-page')//admin-pgae2
         }
     }

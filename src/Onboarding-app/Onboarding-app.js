@@ -94,9 +94,8 @@ class OnboardingApp extends PolymerElement {
         </div>
         <paper-button raised class="header" on-click="_handleHome">HOME</paper-button>
         <template is="dom-if" if={{login}}>
-       
         <paper-button raised class="header" on-click="_handleLogout">Logout</paper-button>
-     
+        <h2>Welcome , {{userName}}</h2>
         </template>
       </app-toolbar>
     </app-header>
@@ -104,8 +103,8 @@ class OnboardingApp extends PolymerElement {
     <home-page name="home"></home-page>
     <registration-form name="registration-form"></registration-form>
     <login-page name="login"></login-page>
-    <dashboard-page name="dashboard-page"></dashboard-page>
-    <itime-page name='itime-page'></itime-page>
+    <dashboard-page name="dashboard-page" user-name={{userName}}></dashboard-page>
+    <itime-page name='itime-page' user-name={{userName}}></itime-page>
     <leave-page name='leave-page'></leave-page>
 
   </iron-pages>
@@ -121,9 +120,8 @@ class OnboardingApp extends PolymerElement {
         reflectToAttribute: true,
         observer: '_pageChanged'
       },
-      name1: {
-        type: String,
-        value: sessionStorage.getItem('name')
+      userName: {
+        type: String
       },
       schemeId: {
         type: Number,
@@ -150,7 +148,7 @@ class OnboardingApp extends PolymerElement {
   _loginChanged() {
     this.addEventListener('refresh-login', (event) => {
       this.login = event.detail.login;
-      this.name1=sessionStorage.getItem('name')
+    this.userName =  event.detail.name;
     })
   }
   // // _handleClear() {

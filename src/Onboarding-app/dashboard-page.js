@@ -27,7 +27,7 @@ class DashBoard extends PolymerElement {
   }
  
 </style>
-<h2>Welcome , {{name1}}</h2>
+
         <a name="login" href="[[rootPath]]itime-page">
           <paper-button>TSMS</paper-button>
         </a>
@@ -35,11 +35,6 @@ class DashBoard extends PolymerElement {
         <a name="about" href="[[rootPath]]leave-page">
           <paper-button>CVCS</paper-button>
         </a>
-    
-
-
-
-
 `;
   
 }
@@ -48,8 +43,10 @@ static get properties() {
         prop1:{
             type:String,
             value:"This is your dashboard"
+        },
+        userName: {
+          type: String
         }
-       
 
     };
   }

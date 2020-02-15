@@ -43,7 +43,6 @@ th, td{
     margin:20px;
 }
 </style>
-<h2>Welcome , {{name1}}</h2>
 <h1>Time Sheet Management System</h1>
 <paper-input label="Number of hours" id="hours" allowed-pattern=[0-9] type="text" value={{hour}} name="hour"  maxlength="2" 
 required error-message="fill your time sheet" ></paper-input>
@@ -53,12 +52,14 @@ required error-message="fill your time sheet" ></paper-input>
                 <th>Date</th>
                 <th>Employee Name</th>
                 <th>Today Time Entry </th>  
+                <th>Status </th> 
             </tr>
         <template is="dom-repeat" items={{data}}>
         <tr>
             <td>{{item.date}}</td>
-            <td>{{name}}</td>
+            <td>{{userName}}</td>
             <td>{{item.hours}}</td>
+            <td>{{item.status}}</td>
         </tr>
         </template>
 </table>
@@ -75,7 +76,10 @@ content-type="application/json" on-error="_handleError"></iron-ajax>
       }
       , name1: {
         type: String,
-        value: sessionStorage.getItem('name')
+        value: sessionStorage.getItem('name1')
+      },
+      userName: {
+        type: String
       },
       action: {
         type: String,
@@ -88,20 +92,19 @@ content-type="application/json" on-error="_handleError"></iron-ajax>
   connectedCallback() {
     super.connectedCallback();
     let id = sessionStorage.getItem('id')
-    this._makeAjax(`http://10.117.189.55:9090/timesheetmanagement/timesheets/${id}`, 'get', null);
+    this._makeAjax(`http://10.117.189.55:9092/timesheetmanagement/timesheets/${id}`, 'get', null);
   }
   _handleAdd() {
     let addHour = this.hour;
     let id = sessionStorage.getItem('id')
     let postObj = { hours: parseInt(addHour), employeeId: parseInt(id) };
-    this._makeAjax('http://10.117.189.55:9090/timesheetmanagement/timesheets', 'post', postObj);
+    this._makeAjax('http://10.117.189.55:9092/timesheetmanagement/timesheets', 'post', postObj);
     this.action = 'post';
 
   }
 
   // getting response from server and storing user name and id in session storage
   _handleResponse(event) {
-    event.model.response;
     switch (this.action) {
       case 'list':
         this.data = event.detail.response;
@@ -113,8 +116,6 @@ content-type="application/json" on-error="_handleError"></iron-ajax>
         let id = sessionStorage.getItem('id')
         this._makeAjax(`http://10.117.189.55:9090/timesheetmanagement/timesheets/${id}`, 'get', null);
         this.action = 'list';
-
-
         break;
 
 
