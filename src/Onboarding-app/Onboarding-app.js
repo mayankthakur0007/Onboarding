@@ -1,6 +1,22 @@
-import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
-import "@fabricelements/skeleton-carousel/skeleton-carousel.js";
-import'./skeleton-carousel';
+import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
+import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
+import './skeleton-carousel.js';
+import '@polymer/app-layout/app-drawer/app-drawer.js';
+import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
+import '@polymer/app-layout/app-header/app-header.js';
+import '@polymer/app-layout/app-header-layout/app-header-layout.js';
+import '@polymer/app-layout/app-toolbar/app-toolbar.js';
+import '@polymer/paper-button/paper-button.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/polymer/lib/elements/dom-if.js'
+import '@polymer/iron-icons/places-icons.js';
+import '@polymer/app-route/app-route.js';
+import '@polymer/app-route/app-location.js';
+import '@polymer/iron-pages/iron-pages.js';
+import '@polymer/iron-selector/iron-selector.js';
+import '@polymer/paper-icon-button/paper-icon-button.js';
+import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
 /**
  * @customElement
  * @polymer
@@ -42,6 +58,8 @@ class OnboardingApp extends PolymerElement {
     font-weight: bold;
   }
 </style>
+
+<h1>dfdfd</h1>
 <app-location route="{{route}}">
 </app-location>
 <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
@@ -65,9 +83,7 @@ class OnboardingApp extends PolymerElement {
   </iron-pages>
   </app-header-layout>
 </app-drawer-layout>
-<skeleton-page data-carousel={{dataCarousel}}>
-      
-</skeleton-page>
+
 
 `;
 

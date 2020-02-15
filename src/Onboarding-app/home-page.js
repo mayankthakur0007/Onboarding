@@ -3,6 +3,10 @@
 */
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
+import './skeleton-carousel.js';
+import '@fabricelements/skeleton-carousel';
+
+
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
 import '@polymer/app-layout/app-header/app-header.js';
@@ -66,8 +70,16 @@ width:50%;
 <app-location route="{{route}}">
 </app-location>
 
+
+<skeleton-page data-carousel={{dataCarousel}}>
+      
+</skeleton-page>
+
   <div id="box">
   </div>
+
+
+
   <div id="buttons">
     <paper-button raised on-click="_handleOnboarding">New Joinee</paper-button>
     <paper-button raised on-click="_handleLogin">Existing Employee</paper-button>
@@ -75,12 +87,43 @@ width:50%;
 
 `;
   }
-  _handleOnboarding(){
-      this.set('route.path','./registration-form')
+  static get properties() {
+    return {
+      dataCarousel: {
+        type: Array,
+        value: [
+          {
+            image: "../images/pic1.jpg",
+            title: "Title1"
+          },
+          {
+            image: "../images/pic2.jpg",
+            title: "Title2"
+          },
+          {
+            image: "../images/pic3.jpg",
+            title: "Title3"
+          },
+          {
+            image: "../images/pic4.jpg",
+            title: "Title4"
+          }
+        ]
+      }
+    };
   }
-  _handleLogin(){
-    this.set('route.path','./login')
-}
+
+
+
+
+
+
+  _handleOnboarding() {
+    this.set('route.path', './registration-form')
+  }
+  _handleLogin() {
+    this.set('route.path', './login')
+  }
 }
 
-window.customElements.define('home-page', HomePage);
+  window.customElements.define('home-page', HomePage);
