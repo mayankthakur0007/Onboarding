@@ -24,6 +24,7 @@ class LoginPage extends PolymerElement {
         border: 1px solid rgb(0, 0, 0);
     border-radius: 20px;
     background-color: white;
+    opacity: 0.9;;
     width: 40%;
     min-width: 310px;
     align-content: center;
@@ -104,7 +105,7 @@ class LoginPage extends PolymerElement {
             let password = this.password;
             this.details = { employeeId: employeeId, password: password }
             this.$.form.reset();
-            this._makeAjax(`http://10.117.189.55:9090/employeemanagement/login`, "post", this.details);
+            this._makeAjax(`http://10.117.189.55:9090/employeemanagement/employees/login`, "post", this.details);
 
         } else {
 
@@ -127,7 +128,7 @@ class LoginPage extends PolymerElement {
         console.log(this.users)
         this.dispatchEvent(new CustomEvent('refresh-login', { detail: { login: true }, bubbles: true, composed: true }))
         sessionStorage.setItem('login', true);
-        this.set('route.path', './admin-page')
+        this.set('route.path', './admin-page')//admin-pgae2
     }
     // calling main ajax call method 
     _makeAjax(url, method, postObj) {

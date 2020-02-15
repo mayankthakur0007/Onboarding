@@ -26,7 +26,7 @@ top: 48%;
   }
   #box{
 background-color: black;
-opacity:0.5;
+opacity:0.2;
 height:70%;
 left:25%;
 position:absolute;

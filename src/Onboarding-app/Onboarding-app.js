@@ -55,7 +55,7 @@ class OnboardingApp extends PolymerElement {
   .drawer-list {
     margin: 0 20px;
 
-
+  }
   .drawer-list a {
     display: block;
     padding: 0 16px;
@@ -67,8 +67,10 @@ class OnboardingApp extends PolymerElement {
     color: black;
     font-weight: bold;
   }
-  #header1{
+  header{
     float:right;
+    background-color:black;
+    color:white;
   }
 </style>
 <app-location route="{{route}}">
@@ -86,11 +88,11 @@ class OnboardingApp extends PolymerElement {
             Employee Management
           </h3>
         </div>
+        <paper-button raised class="header" on-click="_handleHome">HOME</paper-button>
+        <template is="dom-if" if={{login}}>
+        <paper-button raised class="header" on-click="_handleLogout">Logout</paper-button>
+        </template>
       </app-toolbar>
-      <paper-button raised style="float: right" style="float: right" on-click="_handleHome">HOME</paper-button>
-      <template is="dom-if" if={{login}}>
-      <paper-button raised class="header" on-click="_handleLogout">Logout</paper-button>
-      </template>
     </app-header>
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
     <home-page name="home"></home-page>
@@ -143,6 +145,11 @@ class OnboardingApp extends PolymerElement {
   //   this.shadowRoot.querySelector('#guestTag1').style.display = 'block'
   //   this.shadowRoot.querySelector('#adminTag').style.display = 'none'
   // }
+  _handleHome(){
+    sessionStorage.clear();
+    this.login = false;
+    this.set('route.path', './home')
+  }
   _handleLogout() {
     sessionStorage.clear();
     this.login = false;
