@@ -1,6 +1,8 @@
 {
   "name": "onboarding-app",
   "dependencies": {
+    "@fabricelements/skeleton-carousel": "^3.0.2",
+    "@granite-elements/granite-bootstrap": "^4.3.1-2",
     "@polymer/app-layout": "^3.1.0",
     "@polymer/app-route": "^3.0.2",
     "@polymer/gold-cc-cvc-input": "^3.0.2",
@@ -10,6 +12,7 @@
     "@polymer/iron-form": "^3.0.1",
     "@polymer/iron-icon": "^3.0.1",
     "@polymer/iron-icons": "^3.0.1",
+    "@polymer/iron-image": "^3.0.2",
     "@polymer/iron-media-query": "^3.0.1",
     "@polymer/iron-pages": "^3.0.1",
     "@polymer/iron-selector": "^3.0.1",
@@ -27,6 +30,7 @@
     "dom-to-image": "^2.6.0",
     "highcharts-chart": "^3.0.1",
     "jspdf": "^1.5.3",
+    "polymer3-granite-bootstrap": "^4.0.0-polymer3",
     "sinon": "^8.1.1",
     "web-animations-js": "^2.3.2"
   },

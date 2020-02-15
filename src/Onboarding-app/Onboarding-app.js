@@ -1,37 +1,14 @@
+import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
+import "@fabricelements/skeleton-carousel/skeleton-carousel.js";
+import'./skeleton-carousel';
 /**
-* this is the main routing page of this application.
-*/
-import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
-import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-header-layout/app-header-layout.js';
-import '@polymer/app-layout/app-toolbar/app-toolbar.js';
-import '@polymer/paper-button/paper-button.js';
-import '@polymer/iron-icon/iron-icon.js';
-import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/polymer/lib/elements/dom-if.js'
-import '@polymer/iron-icons/places-icons.js';
-import '@polymer/app-route/app-route.js';
-import '@polymer/app-route/app-location.js';
-import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/iron-selector/iron-selector.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
-// Gesture events like tap and track generated from touch will not be
-// preventable, allowing for better scrolling performance.
-setPassiveTouchGestures(true);
-// Set Polymer's root path to the same value we passed to our service worker
-// in `index.html`.
-setRootPath(MyAppGlobals.rootPath);
-/**
-* main class that provides the core API for Polymer and main
-* features including template,routing and property change observation.
-*/
+ * @customElement
+ * @polymer
+ */
 class OnboardingApp extends PolymerElement {
   static get template() {
     return html`
+
 <style>
   :host {
     --app-primary-color: #ff7424;
@@ -88,24 +65,39 @@ class OnboardingApp extends PolymerElement {
   </iron-pages>
   </app-header-layout>
 </app-drawer-layout>
+<skeleton-page data-carousel={{dataCarousel}}>
+      
+</skeleton-page>
 
 `;
+
+
+    
+
   }
   static get properties() {
     return {
-      page: {
-        type: String,
-        reflectToAttribute: true,
-        observer: '_pageChanged'
-      },
-      login: {
-        type: Boolean,
-        value: false,
-        reflectToAttribute: true,
-        observer: '_loginChanged'
-      },
-      routeData: Object,
-      subroute: Object,
+      dataCarousel: {
+        type: Array,
+        value: [
+          {
+            image: "../images/pic1.jpg",
+            title: "Title1"
+          },
+          {
+            image: "../images/pic2.jpg",
+            title: "Title2"
+          },
+          {
+            image: "../images/pic3.jpg",
+            title: "Title3"
+          },
+          {
+            image: "../images/pic4.jpg",
+            title: "Title4"
+          }
+        ]
+      }
     };
   }
   // observing the page change
@@ -163,5 +155,7 @@ class OnboardingApp extends PolymerElement {
         break;
     }
   }
+
 }
+
 window.customElements.define('onboarding-app', OnboardingApp);
