@@ -1,3 +1,4 @@
+
 /**
 * this is the main routing page of this application.
 */
@@ -27,6 +28,7 @@ setPassiveTouchGestures(true);
 // Set Polymer's root path to the same value we passed to our service worker
 // in `index.html`.
 setRootPath(MyAppGlobals.rootPath);
+
 /**
 * main class that provides the core API for Polymer and main
 * features including template,routing and property change observation.
@@ -73,6 +75,8 @@ class OnboardingApp extends PolymerElement {
     color:white;
   }
 </style>
+
+<h1>dfdfd</h1>
 <app-location route="{{route}}">
 </app-location>
 <app-route route="{{route}}" pattern="[[rootPath]]:page" data="{{routeData}}" tail="{{subroute}}">
@@ -97,7 +101,13 @@ class OnboardingApp extends PolymerElement {
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
     <home-page name="home"></home-page>
     <registration-form name="registration-form"></registration-form>
+
     <login-page name="login"></login-page>
+
+    <dashboard-page name="dashboard-page"></dashboard-page>
+    <itime-page name='itime-page'></itime-page>
+    <leave-page name='leave-page'></leave-page>
+
   </iron-pages>
   </app-header-layout>
 </app-drawer-layout>
@@ -167,7 +177,7 @@ class OnboardingApp extends PolymerElement {
   _routePageChanged(page) {
     if (!page) {
       this.page = 'home';
-    } else if (['home', 'registration-form','login'].indexOf(page) !== -1) {
+    } else if (['home', 'registration-form','dashboard-page','itime-page','leave-page','login'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'home';
@@ -186,12 +196,28 @@ class OnboardingApp extends PolymerElement {
       case 'registration-form':
         import('./registration-form.js');
         break;
+
         case 'login':
           import('./login-page.js');
           break;
+
+
+      case 'dashboard-page':
+        import('./dashboard-page.js');
+        break;
+
+        
+      case 'itime-page':
+        import('./itime.js');
+        break;
+
+        
+      case 'leave-page':
+        import('./leave-management.js');
+        break;
+
     }
   }
 
 }
-
 window.customElements.define('onboarding-app', OnboardingApp);

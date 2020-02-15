@@ -36,14 +36,20 @@ width:50%;
   }
   skeleton-page{
       margin-top:30px;
+      
   }
 </style>
 <app-location route="{{route}}">
 </app-location>
+
 <skeleton-page data-carousel={{dataCarousel}}>
 </skeleton-page>
+
   <div id="box">
   </div>
+
+
+
   <div id="buttons">
     <paper-button raised on-click="_handleOnboarding">New Joinee</paper-button>
     <paper-button raised on-click="_handleLogin">Existing Employee</paper-button>
@@ -51,39 +57,42 @@ width:50%;
 
 `;
 
-    }
-    static get properties() {
-        return {
-            dataCarousel: {
-                type: Array,
-                value: [
-                    {
-                        image: "../images/pic1.jpg",
-                        title: "Title1"
-                    },
-                    {
-                        image: "../images/pic2.jpg",
-                        title: "Title2"
-                    },
-                    {
-                        image: "../images/pic3.jpg",
-                        title: "Title3"
-                    },
-                    {
-                        image: "../images/pic4.jpg",
-                        title: "Title4"
-                    }
-                ]
-            }
-
-        };
-    }
-    _handleOnboarding() {
-        this.set('route.path', './registration-form')
-    }
-    _handleLogin() {
-        this.set('route.path', './login')
-    }
+  
 }
 
-window.customElements.define('home-page', HomePage);
+  static get properties() {
+    return {
+      dataCarousel: {
+        type: Array,
+        value: [
+          {
+            image: "../images/pic1.jpg",
+            title: "Title1"
+          },
+          {
+            image: "../images/pic2.jpg",
+            title: "Title2"
+          },
+          {
+            image: "../images/pic3.jpg",
+            title: "Title3"
+          },
+          {
+            image: "../images/pic4.jpg",
+            title: "Title4"
+          }
+        ]
+      }
+    };
+  }
+
+  _handleOnboarding() {
+    this.set('route.path', './registration-form')
+  }
+  _handleLogin() {
+    this.set('route.path', './login')
+  }
+
+}
+
+  window.customElements.define('home-page', HomePage);
