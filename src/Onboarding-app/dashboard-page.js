@@ -27,7 +27,7 @@ class DashBoard extends PolymerElement {
   }
  
 </style>
-
+<h2>Welcome , {{name1}}</h2>
         <a name="login" href="[[rootPath]]itime-page">
           <paper-button>TSMS</paper-button>
         </a>

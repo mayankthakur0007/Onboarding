@@ -150,6 +150,7 @@ connectedCallback(){
 
             case 'List':
                 this.users = event.detail.response;
+                console.log(this.users)
                 break;
         }
 

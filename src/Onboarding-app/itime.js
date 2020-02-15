@@ -43,6 +43,7 @@ th, td{
     margin:20px;
 }
 </style>
+<h2>Welcome , {{name1}}</h2>
 <h1>Time Sheet Management System</h1>
 <paper-input label="Number of hours" id="hours" allowed-pattern=[0-9] type="text" value={{hour}} name="hour"  maxlength="2" 
 required error-message="fill your time sheet" ></paper-input>
@@ -64,43 +65,43 @@ required error-message="fill your time sheet" ></paper-input>
 <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" 
 content-type="application/json" on-error="_handleError"></iron-ajax>
 `;
-  
-}
-static get properties() {
+
+  }
+  static get properties() {
     return {
-        data:{
-            type:Array,
-            value:[]
-        }
-       ,name:{
+      data: {
+        type: Array,
+        value: []
+      }
+      , name1: {
         type: String,
         value: sessionStorage.getItem('name')
-       },
-        action: {
-            type: String,
-            value: 'list'
-          }
+      },
+      action: {
+        type: String,
+        value: 'list'
+      }
     };
   }
- 
 
-connectedCallback(){
+
+  connectedCallback() {
     super.connectedCallback();
-   let id =  sessionStorage.getItem('id')
+    let id = sessionStorage.getItem('id')
     this._makeAjax(`http://10.117.189.55:9090/timesheetmanagement/timesheets/${id}`, 'get', null);
-}
-  _handleAdd(){
+  }
+  _handleAdd() {
     let addHour = this.hour;
-    let id =  sessionStorage.getItem('id')
-    let postObj={hours:parseInt(addHour) , employeeId:parseInt(id)};
+    let id = sessionStorage.getItem('id')
+    let postObj = { hours: parseInt(addHour), employeeId: parseInt(id) };
     this._makeAjax('http://10.117.189.55:9090/timesheetmanagement/timesheets', 'post', postObj);
     this.action = 'post';
 
   }
 
-   // getting response from server and storing user name and id in session storage
-   _handleResponse(event) {
-       event.model.response;
+  // getting response from server and storing user name and id in session storage
+  _handleResponse(event) {
+    event.model.response;
     switch (this.action) {
       case 'list':
         this.data = event.detail.response;
@@ -109,9 +110,10 @@ connectedCallback(){
       case 'post':
         this.data = event.detail.response;
         console.log(this.data)
-        this._makeAjax('http://localhost:3000/schemes', 'get', null);
+        let id = sessionStorage.getItem('id')
+        this._makeAjax(`http://10.117.189.55:9090/timesheetmanagement/timesheets/${id}`, 'get', null);
         this.action = 'list';
-    
+
 
         break;
 
@@ -122,16 +124,16 @@ connectedCallback(){
 
 
 
-    // calling main ajax call method 
-    _makeAjax(url, method, postObj) {
-        let ajax = this.$.ajax;
-        ajax.method = method;
-        ajax.url = url;
-        ajax.body = postObj ? JSON.stringify(postObj) : undefined;
-        ajax.generateRequest();
-    }
-  
+  // calling main ajax call method 
+  _makeAjax(url, method, postObj) {
+    let ajax = this.$.ajax;
+    ajax.method = method;
+    ajax.url = url;
+    ajax.body = postObj ? JSON.stringify(postObj) : undefined;
+    ajax.generateRequest();
+  }
+
 
 }
 
-  window.customElements.define('itime-page', Itime);
+window.customElements.define('itime-page', Itime);
