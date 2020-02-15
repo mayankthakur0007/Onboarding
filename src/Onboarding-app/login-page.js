@@ -131,7 +131,9 @@ class LoginPage extends PolymerElement {
         }else{
         this.dispatchEvent(new CustomEvent('refresh-login', { detail: { login: true }, bubbles: true, composed: true }))
         sessionStorage.setItem('login', true);
-        this.set('route.path', './admin-page')//admin-pgae2
+        sessionStorage.setItem('id', this.users.employeeId);
+        sessionStorage.setItem('name', this.users.employeeName);
+        this.set('route.path', './dashboard-page')//admin-pgae2
         }
     }
     // calling main ajax call method 

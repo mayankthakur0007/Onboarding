@@ -67,14 +67,11 @@ required error-message="fill your time sheet" ></paper-input>
 
         <template is="dom-repeat" items={{data}}>
         <tr>
-
-            <td>{{item.schemeName}}</td>
-            <td>{{}}</td>
             <td>{{item.date}}</td>
-
+            <td>{{name}}</td>
+            <td>{{item.hours}}</td>
         </tr>
-
-        <template>
+        </template>
 </table>
 <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" 
 content-type="application/json" on-error="_handleError"></iron-ajax>
@@ -87,7 +84,10 @@ static get properties() {
             type:Array,
             value:[]
         }
-       ,
+       ,name:{
+        type: String,
+        value: sessionStorage.getItem('name')
+       },
         action: {
             type: String,
             value: 'list'
@@ -98,13 +98,14 @@ static get properties() {
 
 connectedCallback(){
     super.connectedCallback();
-    this._makeAjax('http://10.117.189.37:9090/akshayapathra/schemes/analysis', 'get', null);
+   let id =  sessionStorage.getItem('id')
+    this._makeAjax(`http://10.117.189.55:9090/timesheetmanagement/timesheets/${id}`, 'get', null);
 }
   _handleAdd(){
     let addHour = this.hour;
-    let postObj={entryTIme:addHour};
-    console.log(addHour);
-    this._makeAjax('http://10.117.189.37:9090/akshayapathra/schemes/analysis', 'post', postObj);
+    let id =  sessionStorage.getItem('id')
+    let postObj={hours:parseInt(addHour) , employeeId:parseInt(id)};
+    this._makeAjax('http://10.117.189.55:9090/timesheetmanagement/timesheets', 'post', postObj);
     this.action = 'post';
 
   }
@@ -115,9 +116,11 @@ connectedCallback(){
     switch (this.action) {
       case 'list':
         this.data = event.detail.response;
+        console.log(this.data)
         break;
       case 'post':
         this.data = event.detail.response;
+        console.log(this.data)
         this._makeAjax('http://localhost:3000/schemes', 'get', null);
         this.action = 'list';
     
