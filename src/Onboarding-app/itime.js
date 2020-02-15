@@ -2,6 +2,7 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-input/paper-input.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-ajax/iron-ajax.js';
+import '@polymer/paper-toast/paper-toast.js';
 
 class Itime extends PolymerElement {
   static get template() {
@@ -47,13 +48,13 @@ th, td{
  
 </style>
 
-<h2>TSMS: {{prop1}}</h2>
-
-
-
-<paper-input label="Number of hours" id="hours" allowed-pattern=[0-9] type="text" value={{hour}} name="hour"  maxlength="2" 
+<paper-input label="Number of hours" id="hours" allowed-pattern=[0-9] type="text" value={{hour}} required name="hour"  maxlength="2" 
 required error-message="fill your time sheet" ></paper-input>
 <paper-button raised id="add" on-click="_handleAdd">Add</paper-button>
+
+
+<paper-toast id="toast" text="You have successfully filled your Timesheet"></paper-toast>
+
 
 
 
@@ -62,7 +63,7 @@ required error-message="fill your time sheet" ></paper-input>
             <tr>
                 <th>Date</th>
                 <th>Employee Name</th>
-                <th>Today Time Entry </th>  
+                <th>Today Time Entry (In Hours) </th>  
             </tr>
 
         <template is="dom-repeat" items={{data}}>
@@ -106,6 +107,7 @@ connectedCallback(){
     console.log(addHour);
     this._makeAjax('http://10.117.189.37:9090/akshayapathra/schemes/analysis', 'post', postObj);
     this.action = 'post';
+    this.$.toast.open();
 
   }
 
