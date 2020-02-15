@@ -94,7 +94,7 @@ class RegPage1 extends PolymerElement {
       let marritalStatus = this.$.status.value;
       let mobile = this.$.mobile.value;
       let page1data = [name, email, gender, marritalStatus, mobile];
-      this.dispatchEvent(new CustomEvent('page1-data', { detail: { page1data: page1data, selected: '2' }, bubbles: true, composed: true }));
+      this.dispatchEvent(new CustomEvent('page1-data', { detail: { page1data: page1data, selected: '1' }, bubbles: true, composed: true }));
     }
 
   }

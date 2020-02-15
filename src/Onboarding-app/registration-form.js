@@ -116,15 +116,14 @@ connectedCallback(){
             this.page3data = event.detail.page3data;
             let pg1data = this.page1data;
             let pg3data = this.page3data;
-            let available = "no";
-            var password = Math.random().toString(36).slice(-8);
-            let users = { name: pg1data[0], password: password, email: pg1data[1],available:available, gender: pg1data[2], image: image, religion: pg1data[3], height: pg1data[4], weight: pg1data[7], marritalStatus: pg1data[5], mobile: pg1data[6], date: pg1data[8], degree: pg2data[0], year: pg2data[1], company: pg3data[0], designation: pg3data[1] }
-            this._makeAjax(`http://localhost:3000/users`, "post", users);
+            let users = { name: pg1data[0], email: pg1data[1], gender: pg1data[2], marritalStatus: pg1data[5],company: pg3data[0], designation: pg3data[1] }
+            // this._makeAjax(`http://localhost:3000/users`, "post", users);
+            console.log(users)
             this.$.page1.formreset();
             this.$.page2.formreset();
             this.$.page3.formreset();
-            this.dispatchEvent(new CustomEvent('login-refreshdata', { detail: {}, bubbles: true, composed: true }));
-            this.set('route.path', 'login');
+            // this.dispatchEvent(new CustomEvent('login-refreshdata', { detail: {}, bubbles: true, composed: true }));
+            // this.set('route.path', 'login');
         });
     }
 

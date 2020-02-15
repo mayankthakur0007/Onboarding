@@ -65,6 +65,7 @@ width:50%;
 </style>
 <app-location route="{{route}}">
 </app-location>
+
   <div id="box">
   </div>
   <div id="buttons">
