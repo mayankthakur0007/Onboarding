@@ -1,6 +1,9 @@
+
+/**
+* this is the main routing page of this application.
+*/
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
-import './skeleton-carousel.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
 import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
 import '@polymer/app-layout/app-header/app-header.js';
@@ -9,6 +12,8 @@ import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
+import "@fabricelements/skeleton-carousel/skeleton-carousel.js";
+import'./skeleton-carousel';
 import '@polymer/polymer/lib/elements/dom-if.js'
 import '@polymer/iron-icons/places-icons.js';
 import '@polymer/app-route/app-route.js';
@@ -17,10 +22,17 @@ import '@polymer/iron-pages/iron-pages.js';
 import '@polymer/iron-selector/iron-selector.js';
 import '@polymer/paper-icon-button/paper-icon-button.js';
 import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
+// Gesture events like tap and track generated from touch will not be
+// preventable, allowing for better scrolling performance.
+setPassiveTouchGestures(true);
+// Set Polymer's root path to the same value we passed to our service worker
+// in `index.html`.
+setRootPath(MyAppGlobals.rootPath);
+
 /**
- * @customElement
- * @polymer
- */
+* main class that provides the core API for Polymer and main
+* features including template,routing and property change observation.
+*/
 class OnboardingApp extends PolymerElement {
   static get template() {
     return html`
@@ -84,36 +96,29 @@ class OnboardingApp extends PolymerElement {
   </app-header-layout>
 </app-drawer-layout>
 
-
 `;
-
-
-    
-
   }
   static get properties() {
     return {
-      dataCarousel: {
-        type: Array,
-        value: [
-          {
-            image: "../images/pic1.jpg",
-            title: "Title1"
-          },
-          {
-            image: "../images/pic2.jpg",
-            title: "Title2"
-          },
-          {
-            image: "../images/pic3.jpg",
-            title: "Title3"
-          },
-          {
-            image: "../images/pic4.jpg",
-            title: "Title4"
-          }
-        ]
-      }
+      page: {
+        type: String,
+        reflectToAttribute: true,
+        observer: '_pageChanged'
+      },
+      schemeId: {
+        type: Number,
+        value: 0,
+        observer: '_idChanged'
+      },
+      login: {
+        type: Boolean,
+        value: false,
+        reflectToAttribute: true,
+        observer: '_loginChanged'
+      },
+      routeData: Object,
+      subroute: Object,
+  
     };
   }
   // observing the page change
@@ -122,26 +127,26 @@ class OnboardingApp extends PolymerElement {
       '_routePageChanged(routeData.page)'
     ];
   }
-  _loginChanged() {
-    this.addEventListener('refresh-login', (event) => {
-      this.login = event.detail.login;
-    })
-  }
-  // _handleClear() {
-  // sessionStorage.clear();
+  // _loginChanged() {
+  //   this.addEventListener('refresh-login', (event) => {
+  //     this.login = event.detail.login;
+  //   })
   // }
-  _handleAdmin() {
-    this.shadowRoot.querySelector('#guestTag1').style.display = 'block'
-    this.shadowRoot.querySelector('#adminTag').style.display = 'none'
-  }
-  _handleLogout() {
-    sessionStorage.clear();
-    this.login = false;
-  }
-  _handleGuest() {
-    this.shadowRoot.querySelector('#guestTag1').style.display = 'none'
-    this.shadowRoot.querySelector('#adminTag').style.display = 'block'
-  }
+  // // _handleClear() {
+  // // sessionStorage.clear();
+  // // }
+  // _handleAdmin() {
+  //   this.shadowRoot.querySelector('#guestTag1').style.display = 'block'
+  //   this.shadowRoot.querySelector('#adminTag').style.display = 'none'
+  // }
+  // _handleLogout() {
+  //   sessionStorage.clear();
+  //   this.login = false;
+  // }
+  // _handleGuest() {
+  //   this.shadowRoot.querySelector('#guestTag1').style.display = 'none'
+  //   this.shadowRoot.querySelector('#adminTag').style.display = 'block'
+  // }
   /**
   * Show the corresponding page according to the route.
   * If no page was found in the route data, page will be an empty string.

@@ -1,38 +1,7 @@
-/**
-* this is the main routing page of this application.
-*/
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
-import { setPassiveTouchGestures, setRootPath } from '@polymer/polymer/lib/utils/settings.js';
-import './skeleton-carousel.js';
-import '@fabricelements/skeleton-carousel';
-
-
-import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-drawer-layout/app-drawer-layout.js';
-import '@polymer/app-layout/app-header/app-header.js';
-import '@polymer/app-layout/app-header-layout/app-header-layout.js';
-import '@polymer/app-layout/app-toolbar/app-toolbar.js';
 import '@polymer/paper-button/paper-button.js';
-import '@polymer/iron-icon/iron-icon.js';
-import '@polymer/iron-icons/iron-icons.js';
-import '@polymer/polymer/lib/elements/dom-if.js'
-import '@polymer/iron-icons/places-icons.js';
-import '@polymer/app-route/app-route.js';
-import '@polymer/app-route/app-location.js';
-import '@polymer/iron-pages/iron-pages.js';
-import '@polymer/iron-selector/iron-selector.js';
-import '@polymer/paper-icon-button/paper-icon-button.js';
-import '@polymer/app-layout/app-scroll-effects/app-scroll-effects.js';
-// Gesture events like tap and track generated from touch will not be
-// preventable, allowing for better scrolling performance.
-setPassiveTouchGestures(true);
-// Set Polymer's root path to the same value we passed to our service worker
-// in `index.html`.
-setRootPath(MyAppGlobals.rootPath);
-/**
-* main class that provides the core API for Polymer and main
-* features including template,routing and property change observation.
-*/
+import "@fabricelements/skeleton-carousel/skeleton-carousel.js";
+import'./skeleton-carousel';
 class HomePage extends PolymerElement {
   static get template() {
     return html`
@@ -57,7 +26,7 @@ top: 48%;
   }
   #box{
 background-color: black;
-opacity:0.3;
+opacity:0.5;
 height:70%;
 left:25%;
 position:absolute;
@@ -65,14 +34,14 @@ top: 22%;
 border-radius: 10px;
 width:50%;
   }
-
+  skeleton-page{
+      margin-top:30px;
+  }
 </style>
 <app-location route="{{route}}">
 </app-location>
 
-
 <skeleton-page data-carousel={{dataCarousel}}>
-      
 </skeleton-page>
 
   <div id="box">
@@ -86,6 +55,33 @@ width:50%;
   </div>
 
 `;
+  
+}
+static get properties() {
+    return {
+        dataCarousel: {
+            type: Array,
+            value: [
+              {
+                image: "../images/pic1.jpg",
+                title: "Title1"
+              },
+              {
+                image: "../images/pic2.jpg",
+                title: "Title2"
+              },
+              {
+                image: "../images/pic3.jpg",
+                title: "Title3"
+              },
+              {
+                image: "../images/pic4.jpg",
+                title: "Title4"
+              }
+            ]
+          }
+
+    };
   }
   static get properties() {
     return {
