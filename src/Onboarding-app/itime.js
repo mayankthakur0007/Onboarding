@@ -68,7 +68,7 @@ required error-message="fill your time sheet" ></paper-input>
         <template is="dom-repeat" items={{data}}>
         <tr>
             <td>{{item.date}}</td>
-            <td>{{userName}}</td>
+            <td>{{item.employee.employeeName}}</td>
             <td>{{item.hours}}</td>
             <td>{{item.status}}</td>
         </tr>
@@ -126,7 +126,7 @@ content-type="application/json" on-error="_handleError"></iron-ajax>
         this.data = event.detail.response;
         console.log(this.data)
         let id = sessionStorage.getItem('id')
-        this._makeAjax(`http://10.117.189.55:9090/timesheetmanagement/timesheets/${id}`, 'get', null);
+        this._makeAjax(`http://10.117.189.55:9092/timesheetmanagement/timesheets/${id}`, 'get', null);
         this.action = 'list';
         break;
 
