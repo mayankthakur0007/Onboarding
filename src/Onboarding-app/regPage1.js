@@ -61,7 +61,6 @@ class RegPage1 extends PolymerElement {
           <paper-item>Female</paper-item>
           </paper-listbox>
         </paper-dropdown-menu></div>
-        <div class="items"><paper-input type="phone"label="Mobile" id="mobile" required></paper-input></div>
   </div>
   <div class="items"><paper-button type="submit" id="btn" class="btn btn-success" on-click="_handleNext">Next Step</paper-button></div>
 </form>
@@ -92,7 +91,7 @@ class RegPage1 extends PolymerElement {
       let email = this.$.email.value;
       let gender = this.$.gender.value;
       let marritalStatus = this.$.status.value;
-      let page1data = [name, email, gender, marritalStatus, mobile];
+      let page1data = [name, email, gender, marritalStatus];
       this.dispatchEvent(new CustomEvent('page1-data', { detail: { page1data: page1data, selected: '1' }, bubbles: true, composed: true }));
     }
 
