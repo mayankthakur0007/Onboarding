@@ -2,7 +2,9 @@ import { html, PolymerElement } from '@polymer/polymer/polymer-element.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '@polymer/paper-button/paper-button.js';
 import '@polymer/paper-card/paper-card.js';
-import  '@vaadin/vaadin-date-picker/vaadin-date-picker.js';
+import '@vaadin/vaadin-date-picker/vaadin-date-picker.js';
+
+import '@polymer/paper-toast/paper-toast.js';
 
 /**
  * @customElement
@@ -13,7 +15,8 @@ class LeaveManagement extends PolymerElement {
         return html`
     <style>
     header{
-        background-color:rgba(0,50,255,0.6);
+     background: linear-gradient(to right, #FFF94C, #004FF9); 
+
 
         color:white;
         display:grid;
@@ -57,13 +60,14 @@ class LeaveManagement extends PolymerElement {
         height:500px;
     }
     #applyLeave{
-        background-color:green;
+      background-color:blue; 
         color:white;
     }
     #lmsPortal{
         width:25%;
         text-align:center;
-        background-color:whitesmoke;
+        background-color:white;
+
         margin:10px auto;
         border-radius:5px;
         padding:15px;
@@ -73,17 +77,21 @@ class LeaveManagement extends PolymerElement {
     }
     </style>
     <header>
-    <div id="heading"><h2>Employee Portal</h2></div>
+
     <div id="pageName"><h2><iron-icon icon="event" slot="prefix"></iron-icon>Leave Management System</h2></div>
-    <div id="logo"><h2>Onboarding<iron-icon icon="assignment-ind"></iron-icon></h2></div>
+
 </header>
 <main>
 <div id="lmsPortal">
 <vaadin-date-picker id="date" label="Select Date" on-change="_getDate" ></vaadin-date-picker>
 <p><h1>Date Selected:</h1><h2>{{dateSelected}}</h2></p>
-<paper-button id="applyLeave" >Apply Leave</paper-button>
+<paper-button id="applyLeave" on-click="_applyLeave" >Apply Leave</paper-button>
 </div>
 </main>
+
+
+
+<paper-toast id="toast" text="Leave have applied"></paper-toast>
     `;
     }
     static get properties() {
@@ -108,6 +116,10 @@ _handleLeave(){
 }
 _handleTimesheet(){
 
+}
+
+_applyLeave(){
+  this.$.toast.open();
 }
 
 }
