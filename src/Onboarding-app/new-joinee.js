@@ -52,7 +52,7 @@ class OnboardingApp extends PolymerElement {
   .drawer-list {
     margin: 0 20px;
 
-
+  }
   .drawer-list a {
     display: block;
     padding: 0 16px;
@@ -81,14 +81,13 @@ class OnboardingApp extends PolymerElement {
           </h3>
         </div>
       </app-toolbar>
+      eqfeq
     </app-header>
-    <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
-    <home-page name="home"></home-page>
-    <registration-form name="registration-form"></registration-form>
-  </iron-pages>
   </app-header-layout>
 </app-drawer-layout>
-
+<iron-pages selected="[[page]]" attr-for-selected="name" role="main">
+    
+</iron-pages>
 `;
   }
   static get properties() {
@@ -141,11 +140,11 @@ class OnboardingApp extends PolymerElement {
   */
   _routePageChanged(page) {
     if (!page) {
-      this.page = 'home';
-    } else if (['home', 'registration-form'].indexOf(page) !== -1) {
+      this.page = 'donation-option';
+    } else if (['donation-option', 'payment-option', 'login-page', 'admin-page'].indexOf(page) !== -1) {
       this.page = page;
     } else {
-      this.page = 'home';
+      this.page = 'donation-option';
     }
   }
   /**
@@ -155,11 +154,8 @@ class OnboardingApp extends PolymerElement {
   */
   _pageChanged(page) {
     switch (page) {
-      case 'home':
-        import('./home-page.js');
-        break;
-      case 'registration-form':
-        import('./registration-form.js');
+      case 'donation-option':
+        import('./donation-option.js');
         break;
     }
   }
