@@ -65,7 +65,7 @@ return html`
         </paper-input>
       </div>
       <div class="items">
-        <vaadin-date-picker id="start" label="Date Of Birth" placeholder="Date Of Birth" on-change="startChanged">
+        <vaadin-date-picker id="start" label="Date Of Joining" placeholder="Date Of Joining" on-change="startChanged">
         </vaadin-date-picker>
       </div>
       <div class="items">
@@ -76,7 +76,7 @@ return html`
 </iron-form>
 <paper-dialog id="modal">
  <h1>Onboarding Successfull!!!</h1>
- You will get your login details after HR approval. 
+ <h2>You will get your login details after HR approval. </h2>
   <div class="buttons">
     <paper-button dialog-confirm autofocus on-click="_handleClose">Close</paper-button>
   </div>

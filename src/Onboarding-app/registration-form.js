@@ -118,7 +118,6 @@ connectedCallback(){
             let pg3data = this.page3data;
             let users = { employeeName: pg1data[0], email: pg1data[1], gender: pg1data[2], dateOfBirth: pg1data[3],experience: pg3data[0], dateOfJoining: pg3data[1] }
             this._makeAjax(`http://10.117.189.55:9090/employeemanagement/employees`, "post", users);
-            console.log(users)
             this.$.page1.formreset();
             this.$.page3.formreset();
             // this.dispatchEvent(new CustomEvent('login-refreshdata', { detail: {}, bubbles: true, composed: true }));
@@ -150,7 +149,7 @@ connectedCallback(){
         switch (this.action) {
 
             case 'List':
-                this.order = event.detail.response;
+                this.users = event.detail.response;
                 break;
         }
 
