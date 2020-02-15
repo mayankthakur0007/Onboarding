@@ -43,14 +43,8 @@ th, td{
     background-color:blue;
     margin:20px;
 }
-
-
- 
 </style>
 
-<paper-input label="Number of hours" id="hours" allowed-pattern=[0-9] type="text" value={{hour}} required name="hour"  maxlength="2" 
-required error-message="fill your time sheet" ></paper-input>
-<paper-button raised id="add" on-click="_handleAdd">Add</paper-button>
 
 
 <paper-toast id="toast" text="You have successfully filled your Timesheet"></paper-toast>
@@ -58,24 +52,24 @@ required error-message="fill your time sheet" ></paper-input>
 
 
 
+<h1>Time Sheet Management System</h1>
+<paper-input label="Number of hours" id="hours" allowed-pattern=[0-9] type="text" value={{hour}} name="hour"  maxlength="2" 
+required error-message="fill your time sheet" ></paper-input>
+<paper-button raised id="add" on-click="_handleAdd">Add</paper-button>
+
 <table id="tab1">
-        
             <tr>
                 <th>Date</th>
                 <th>Employee Name</th>
                 <th>Today Time Entry (In Hours) </th>  
             </tr>
-
         <template is="dom-repeat" items={{data}}>
         <tr>
-
-            <td>{{item.schemeName}}</td>
-            <td>{{}}</td>
             <td>{{item.date}}</td>
-
+            <td>{{name}}</td>
+            <td>{{item.hours}}</td>
         </tr>
-
-        <template>
+        </template>
 </table>
 <iron-ajax id="ajax" handle-as="json" on-response="_handleResponse" 
 content-type="application/json" on-error="_handleError"></iron-ajax>
@@ -88,7 +82,10 @@ static get properties() {
             type:Array,
             value:[]
         }
-       ,
+       ,name:{
+        type: String,
+        value: sessionStorage.getItem('name')
+       },
         action: {
             type: String,
             value: 'list'
@@ -99,13 +96,14 @@ static get properties() {
 
 connectedCallback(){
     super.connectedCallback();
-    this._makeAjax('http://10.117.189.37:9090/akshayapathra/schemes/analysis', 'get', null);
+   let id =  sessionStorage.getItem('id')
+    this._makeAjax(`http://10.117.189.55:9090/timesheetmanagement/timesheets/${id}`, 'get', null);
 }
   _handleAdd(){
     let addHour = this.hour;
-    let postObj={entryTIme:addHour};
-    console.log(addHour);
-    this._makeAjax('http://10.117.189.37:9090/akshayapathra/schemes/analysis', 'post', postObj);
+    let id =  sessionStorage.getItem('id')
+    let postObj={hours:parseInt(addHour) , employeeId:parseInt(id)};
+    this._makeAjax('http://10.117.189.55:9090/timesheetmanagement/timesheets', 'post', postObj);
     this.action = 'post';
     this.$.toast.open();
 
@@ -117,9 +115,11 @@ connectedCallback(){
     switch (this.action) {
       case 'list':
         this.data = event.detail.response;
+        console.log(this.data)
         break;
       case 'post':
         this.data = event.detail.response;
+        console.log(this.data)
         this._makeAjax('http://localhost:3000/schemes', 'get', null);
         this.action = 'list';
     

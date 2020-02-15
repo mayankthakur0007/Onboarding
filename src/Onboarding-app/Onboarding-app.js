@@ -13,7 +13,7 @@ import '@polymer/paper-button/paper-button.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import "@fabricelements/skeleton-carousel/skeleton-carousel.js";
-import'./skeleton-carousel';
+import './skeleton-carousel';
 import '@polymer/polymer/lib/elements/dom-if.js'
 import '@polymer/iron-icons/places-icons.js';
 import '@polymer/app-route/app-route.js';
@@ -57,7 +57,7 @@ class OnboardingApp extends PolymerElement {
   .drawer-list {
     margin: 0 20px;
 
-
+  }
   .drawer-list a {
     display: block;
     padding: 0 16px;
@@ -68,6 +68,11 @@ class OnboardingApp extends PolymerElement {
   .drawer-list a.iron-selected {
     color: black;
     font-weight: bold;
+  }
+  header{
+    float:right;
+    background-color:black;
+    color:white;
   }
 </style>
 
@@ -87,14 +92,21 @@ class OnboardingApp extends PolymerElement {
             Employee Management
           </h3>
         </div>
+        <paper-button raised class="header" on-click="_handleHome">HOME</paper-button>
+        <template is="dom-if" if={{login}}>
+        <paper-button raised class="header" on-click="_handleLogout">Logout</paper-button>
+        Welcome , {{name}}
+        </template>
       </app-toolbar>
     </app-header>
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
     <home-page name="home"></home-page>
     <registration-form name="registration-form"></registration-form>
+    <login-page name="login"></login-page>
     <dashboard-page name="dashboard-page"></dashboard-page>
     <itime-page name='itime-page'></itime-page>
     <leave-page name='leave-page'></leave-page>
+
   </iron-pages>
   </app-header-layout>
 </app-drawer-layout>
@@ -107,6 +119,10 @@ class OnboardingApp extends PolymerElement {
         type: String,
         reflectToAttribute: true,
         observer: '_pageChanged'
+      },
+      name: {
+        type: String,
+        value: sessionStorage.getItem('name')
       },
       schemeId: {
         type: Number,
@@ -121,7 +137,7 @@ class OnboardingApp extends PolymerElement {
       },
       routeData: Object,
       subroute: Object,
-  
+
     };
   }
   // observing the page change
@@ -130,11 +146,11 @@ class OnboardingApp extends PolymerElement {
       '_routePageChanged(routeData.page)'
     ];
   }
-  // _loginChanged() {
-  //   this.addEventListener('refresh-login', (event) => {
-  //     this.login = event.detail.login;
-  //   })
-  // }
+  _loginChanged() {
+    this.addEventListener('refresh-login', (event) => {
+      this.login = event.detail.login;
+    })
+  }
   // // _handleClear() {
   // // sessionStorage.clear();
   // // }
@@ -142,10 +158,16 @@ class OnboardingApp extends PolymerElement {
   //   this.shadowRoot.querySelector('#guestTag1').style.display = 'block'
   //   this.shadowRoot.querySelector('#adminTag').style.display = 'none'
   // }
-  // _handleLogout() {
-  //   sessionStorage.clear();
-  //   this.login = false;
-  // }
+  _handleHome() {
+    sessionStorage.clear();
+    this.login = false;
+    this.set('route.path', './home')
+  }
+  _handleLogout() {
+    sessionStorage.clear();
+    this.login = false;
+    this.set('route.path', './home')
+  }
   // _handleGuest() {
   //   this.shadowRoot.querySelector('#guestTag1').style.display = 'none'
   //   this.shadowRoot.querySelector('#adminTag').style.display = 'block'
@@ -158,7 +180,7 @@ class OnboardingApp extends PolymerElement {
   _routePageChanged(page) {
     if (!page) {
       this.page = 'home';
-    } else if (['home', 'registration-form','dashboard-page','itime-page','leave-page'].indexOf(page) !== -1) {
+    } else if (['home', 'registration-form', 'dashboard-page', 'itime-page', 'leave-page', 'login'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'home';
@@ -178,22 +200,27 @@ class OnboardingApp extends PolymerElement {
         import('./registration-form.js');
         break;
 
+      case 'login':
+        import('./login-page.js');
+        break;
+
+
       case 'dashboard-page':
         import('./dashboard-page.js');
         break;
 
-        
+
       case 'itime-page':
         import('./itime.js');
         break;
 
-        
+
       case 'leave-page':
         import('./leave-management.js');
         break;
+
     }
   }
 
 }
-
 window.customElements.define('onboarding-app', OnboardingApp);

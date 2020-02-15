@@ -1,10 +1,10 @@
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-button/paper-button.js';
 import "@fabricelements/skeleton-carousel/skeleton-carousel.js";
-import'./skeleton-carousel';
+import './skeleton-carousel';
 class HomePage extends PolymerElement {
-  static get template() {
-    return html`
+    static get template() {
+        return html`
 <style>
   :host {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -26,7 +26,7 @@ top: 48%;
   }
   #box{
 background-color: black;
-opacity:0.5;
+opacity:0.2;
 height:70%;
 left:25%;
 position:absolute;
@@ -56,6 +56,7 @@ width:50%;
   </div>
 
 `;
+
   
 }
 
@@ -85,17 +86,13 @@ width:50%;
     };
   }
 
-
-
-
-
-
   _handleOnboarding() {
     this.set('route.path', './registration-form')
   }
   _handleLogin() {
     this.set('route.path', './login')
   }
+
 }
 
   window.customElements.define('home-page', HomePage);

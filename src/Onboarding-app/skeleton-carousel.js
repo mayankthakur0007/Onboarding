@@ -31,7 +31,6 @@ class SkeletonCarousel extends PolymerElement {
   }
   connectedCallback(){
       super.connectedCallback();
-      console.log(this.dataCarousel);
   }
 }
 

@@ -51,7 +51,7 @@ paper-button{
       <app-location route="{{route}}">
       </app-location>
       <div id="content">
-      <h1>Registration</h1>
+      <h1>Onboarding Details</h1>
       <paper-tabs selected={{selected}} scrollable>
       <paper-tab>Personal Details</paper-tab>
       <paper-tab on-click="step3">Professional Details</paper-tab>
@@ -65,6 +65,7 @@ paper-button{
     </div>    
   </iron-pages>
   </div>
+
   <iron-ajax id="ajax" on-response="_handleResponse" handle-as="json" content-type='application/json'></iron-ajax>
     `;
     }
@@ -104,7 +105,6 @@ paper-button{
     so that the list got again refreshed **/
 connectedCallback(){
     super.connectedCallback();
-    console.log("sfvw")
 }
     ready() {
         super.ready();
@@ -116,11 +116,9 @@ connectedCallback(){
             this.page3data = event.detail.page3data;
             let pg1data = this.page1data;
             let pg3data = this.page3data;
-            let users = { name: pg1data[0], email: pg1data[1], gender: pg1data[2], marritalStatus: pg1data[5],company: pg3data[0], designation: pg3data[1] }
-            // this._makeAjax(`http://localhost:3000/users`, "post", users);
-            console.log(users)
+            let users = { employeeName: pg1data[0], email: pg1data[1], gender: pg1data[2], dateOfBirth: pg1data[3],experience: pg3data[0], dateOfJoining: pg3data[1] }
+            this._makeAjax(`http://10.117.189.55:9090/employeemanagement/employees`, "post", users);
             this.$.page1.formreset();
-            this.$.page2.formreset();
             this.$.page3.formreset();
             // this.dispatchEvent(new CustomEvent('login-refreshdata', { detail: {}, bubbles: true, composed: true }));
             // this.set('route.path', 'login');
@@ -133,11 +131,7 @@ connectedCallback(){
 
 
     }
-    step3() {
 
-        this.$.page2._handleNext();
-
-    }
 
     _makeAjax(url, method, postObj) {
         const ajax = this.$.ajax;
@@ -155,7 +149,7 @@ connectedCallback(){
         switch (this.action) {
 
             case 'List':
-                this.order = event.detail.response;
+                this.users = event.detail.response;
                 break;
         }
 

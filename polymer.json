@@ -5,8 +5,7 @@
   "sources": [
     "src/**/*",
     "manifest/**",
-    "package.json",
-    "config.html"
+    "package.json"
    ],
    "extraDependencies": [
     "manifest.json",
