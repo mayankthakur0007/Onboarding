@@ -92,6 +92,9 @@ class OnboardingApp extends PolymerElement {
     <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
     <home-page name="home"></home-page>
     <registration-form name="registration-form"></registration-form>
+    <dashboard-page name="dashboard-page"></dashboard-page>
+    <itime-page name='itime-page'></itime-page>
+    <leave-page name='leave-page'></leave-page>
   </iron-pages>
   </app-header-layout>
 </app-drawer-layout>
@@ -155,7 +158,7 @@ class OnboardingApp extends PolymerElement {
   _routePageChanged(page) {
     if (!page) {
       this.page = 'home';
-    } else if (['home', 'registration-form'].indexOf(page) !== -1) {
+    } else if (['home', 'registration-form','dashboard-page','itime-page','leave-page'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'home';
@@ -173,6 +176,20 @@ class OnboardingApp extends PolymerElement {
         break;
       case 'registration-form':
         import('./registration-form.js');
+        break;
+
+      case 'dashboard-page':
+        import('./dashboard-page.js');
+        break;
+
+        
+      case 'itime-page':
+        import('./itime.js');
+        break;
+
+        
+      case 'leave-page':
+        import('./leave-management.js');
         break;
     }
   }

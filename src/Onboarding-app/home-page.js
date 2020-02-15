@@ -36,6 +36,7 @@ width:50%;
   }
   skeleton-page{
       margin-top:30px;
+      
   }
 </style>
 <app-location route="{{route}}">
@@ -57,32 +58,7 @@ width:50%;
 `;
   
 }
-static get properties() {
-    return {
-        dataCarousel: {
-            type: Array,
-            value: [
-              {
-                image: "../images/pic1.jpg",
-                title: "Title1"
-              },
-              {
-                image: "../images/pic2.jpg",
-                title: "Title2"
-              },
-              {
-                image: "../images/pic3.jpg",
-                title: "Title3"
-              },
-              {
-                image: "../images/pic4.jpg",
-                title: "Title4"
-              }
-            ]
-          }
 
-    };
-  }
   static get properties() {
     return {
       dataCarousel: {
